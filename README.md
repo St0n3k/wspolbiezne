@@ -4,5 +4,5 @@
 
 | Name Surname (initials) | GUID                                     |
 | ----------------------- | ---------------------------------------- |
-| Kamil G                 |                                          |
-| Bartłomiej Cz           |                                          |
+| Kamil G                 | 236538                                   |
+| Bartłomiej Cz           | 236512                                   |
