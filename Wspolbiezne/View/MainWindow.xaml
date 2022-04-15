@@ -1,0 +1,25 @@
+﻿<Window x:Class="View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:ViewModel;assembly=ViewModel"
+        xmlns:local="clr-namespace:View"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize">
+    <Window.DataContext>
+        <vm:ViewModelController/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="515*"/>
+            <ColumnDefinition Width="286*"/>
+        </Grid.ColumnDefinitions>
+        <Canvas Width="700" Height="400" Margin="10,17,90,17" Grid.ColumnSpan="2">
+            <Ellipse Height="{Binding Path=BallNumber, UpdateSourceTrigger=PropertyChanged}" Canvas.Left="152" Stroke="Black" Canvas.Top="100" Width="{Binding Path=BallNumber, UpdateSourceTrigger=PropertyChanged}"/>
+        </Canvas>
+        <TextBox Text="{Binding Path=BallNumber, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="200,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Grid.Column="1"/>
+        <Button Command="{Binding HelloCommand}" Content="Start" HorizontalAlignment="Left" Margin="214,92,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+
+    </Grid>
+</Window>
