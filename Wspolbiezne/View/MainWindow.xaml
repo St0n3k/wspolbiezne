@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:ViewModel;assembly=ViewModel"
         xmlns:local="clr-namespace:View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize">
+        Title="Moving balls" Height="500" Width="850" ResizeMode="NoResize">
     <Window.DataContext>
         <vm:ViewModelController/>
     </Window.DataContext>
@@ -15,11 +15,28 @@
             <ColumnDefinition Width="515*"/>
             <ColumnDefinition Width="286*"/>
         </Grid.ColumnDefinitions>
-        <Canvas Width="700" Height="400" Margin="10,17,90,17" Grid.ColumnSpan="2">
-            <Ellipse Height="{Binding Path=BallNumber, UpdateSourceTrigger=PropertyChanged}" Canvas.Left="152" Stroke="Black" Canvas.Top="100" Width="{Binding Path=BallNumber, UpdateSourceTrigger=PropertyChanged}"/>
-        </Canvas>
-        <TextBox Text="{Binding Path=BallNumber, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="200,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Grid.Column="1"/>
-        <Button Command="{Binding HelloCommand}" Content="Start" HorizontalAlignment="Left" Margin="214,92,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <ItemsControl ItemsSource="{Binding BallsList}" Grid.ColumnSpan="2" Margin="0,0,97,0">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Width="700" Height="400" Background="LightGray" Margin="15,17,5,17" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left" Value="{Binding X}"/>
+                    <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Ellipse Height="{Binding Height}" 
+                            Width="{Binding Width}"
+                            Stroke="Black" Fill="White"></Ellipse>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <TextBox Text="{Binding Path=BallNumber, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="224,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Grid.Column="1"/>
+        <Button Command="{Binding HelloCommand}" Content="Start" HorizontalAlignment="Left" Margin="224,92,0,0" VerticalAlignment="Top" Grid.Column="1" Height="21" Width="54"/>
 
     </Grid>
 </Window>

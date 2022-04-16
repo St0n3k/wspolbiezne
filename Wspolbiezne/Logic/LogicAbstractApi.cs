@@ -6,7 +6,7 @@ namespace Logic
 {
     public abstract class LogicAbstractAPI
     {
-        static LogicAbstractAPI createApi(DataAbstractAPI dataAbstractAPI)
+        public static LogicAbstractAPI createApi(DataAbstractAPI dataAbstractAPI)
         {
             return new LogicAPI(dataAbstractAPI);
         }
@@ -18,8 +18,8 @@ namespace Logic
 
     internal sealed class LogicAPI : LogicAbstractAPI {
 
-        public LogicAPI(DataAbstractAPI dataAbstractAPI) { 
-            this.dataAPI = dataAbstractAPI;
+        public LogicAPI(DataAbstractAPI dataAbstractAPI = null) {
+            this.dataAPI = DataAbstractAPI.createApi();
         }
 
         public override void createArea(int width, int height, int ballsAmount, int ballRadius) {
