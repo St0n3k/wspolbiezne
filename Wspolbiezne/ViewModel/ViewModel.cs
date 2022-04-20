@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Text.RegularExpressions;
 using System;
-using System.ComponentModel;
 
 namespace Presentation.ViewModel
 {
@@ -13,7 +12,6 @@ namespace Presentation.ViewModel
         {
             StartCommand = new RelayCommand(start);
             StopCommand = new RelayCommand(stop);
-            closingHandler = OnWindowClosing;
             if (modelAPI == null)
             {
                 this.modelApi = ModelAbstractAPI.createApi();
@@ -28,14 +26,7 @@ namespace Presentation.ViewModel
 
         private int ballNumber = 1;
 
-        public void OnWindowClosing(object sender, CancelEventArgs e)
-        {
-            stop();
-        }
-        public CancelEventHandler closingHandler{
-            get; set;
-        }
-        public String BallNumber { 
+        public string BallNumber { 
             get => Convert.ToString(ballNumber);
             set
             {
