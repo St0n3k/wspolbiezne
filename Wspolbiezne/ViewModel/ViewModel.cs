@@ -1,30 +1,33 @@
-﻿using System;
+﻿using Presentation.Model;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Model;
 
-namespace ViewModel
+namespace Presentation.ViewModel
 {
     public class ViewModelController : ViewModelBase
     {
-        public ViewModelController() {
-            HelloCommand = new RelayCommand(Hello);
+        public ViewModelController()
+        {
+            StartCommand = new RelayCommand(start);
+            StopCommand = new RelayCommand(stop);
             modelApi = ModelAbstractAPI.createApi();
-            modelApi.createArea(1);
-            ballsList = modelApi.getBalls();
         }
 
         private ModelAbstractAPI modelApi;
 
-        private int ballNumber = 3;
+        private int ballNumber = 0;
 
         public int BallNumber { get => ballNumber; set => ballNumber=value; }
-        public ICommand HelloCommand { get ; set; }
+
+        public ICommand StartCommand { get; set; }
+
+        public ICommand StopCommand { get; set; }
 
         private ObservableCollection<Ellipse> ballsList;
-        public ObservableCollection<Ellipse> BallsList {
+        public ObservableCollection<Ellipse> BallsList
+        {
             get => ballsList;
-            
+
             set
             {
                 if (value.Equals(ballsList))
@@ -34,14 +37,30 @@ namespace ViewModel
             }
         }
 
-        private void Hello() {
-            BallsList = modelApi.getBalls();
-            foreach (Ellipse e in BallsList)
+        private bool startEnabled = true;
+        public bool StartEnabled
+        {
+            get => startEnabled;
+            set
             {
-                System.Diagnostics.Debug.WriteLine(Convert.ToString(e.X) + " " + Convert.ToString(e.Y) + " " + Convert.ToString(e.Height) + " " + Convert.ToString(e.Width));
+                startEnabled=value;
+                RaisePropertyChanged("StartEnabled");
+                RaisePropertyChanged("StopEnabled");
             }
-            modelApi.update();
+        }
+        public bool StopEnabled { get => !startEnabled; }
 
+        private void start()
+        {
+            modelApi.createArea(ballNumber);
+            StartEnabled = false;
+            BallsList = modelApi.getBalls();
+        }
+
+        private void stop()
+        {
+            modelApi.stop();
+            StartEnabled = true;
         }
 
     }

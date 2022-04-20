@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>ViewModel</AssemblyName>
-    <RootNamespace>ViewModel</RootNamespace>
+    <AssemblyName>Presentation.ViewModel</AssemblyName>
+    <RootNamespace>Presentation.ViewModel</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
