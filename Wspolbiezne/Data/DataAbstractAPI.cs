@@ -1,16 +1,15 @@
-﻿using System;
-
-namespace Data
+﻿namespace Data
 {
     public abstract class DataAbstractAPI
     {
-        public static DataAbstractAPI createApi() { 
+        public static DataAbstractAPI createApi()
+        {
             return new DataAPI();
         }
 
-    }
+        internal sealed class DataAPI : DataAbstractAPI
+        {
 
-    internal sealed class DataAPI : DataAbstractAPI{ 
-    
+        }
     }
 }

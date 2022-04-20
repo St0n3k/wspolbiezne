@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 
-namespace ViewModel
+namespace Presentation.ViewModel
 {
     internal class RelayCommand : ICommand
     {
@@ -18,7 +16,7 @@ namespace ViewModel
             _canExecute = canExecute;
         }
 
-        
+
         public bool CanExecute(object parameter) => _canExecute == null || _canExecute();
 
         public void Execute(object parameter) => _execute();
