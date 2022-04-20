@@ -21,7 +21,7 @@ namespace Logic
             get => radius;
             set
             {
-                if (radius > 0)
+                if (value > 0)
                 {
                     radius=value;
                 }
