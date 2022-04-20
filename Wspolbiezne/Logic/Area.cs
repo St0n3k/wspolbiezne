@@ -43,6 +43,6 @@ namespace Logic
 
         public List<Ball> Balls => balls;
 
-        public bool Active { get => active; set => active=value; }
+        public bool Active { get => active; set => active = value; }
     }
 }

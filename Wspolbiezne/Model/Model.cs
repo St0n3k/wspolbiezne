@@ -19,12 +19,14 @@ namespace Presentation.Model
 
         public sealed class ModelAPI : ModelAbstractAPI
         {
-            public ModelAPI(LogicAbstractAPI logicAbstractAPI = null) {
+            public ModelAPI(LogicAbstractAPI logicAbstractAPI = null)
+            {
                 if (logicAbstractAPI == null)
                 {
                     this.logicApi = LogicAbstractAPI.createApi();
                 }
-                else {
+                else
+                {
                     this.logicApi = logicAbstractAPI;
                 }
             }
@@ -33,7 +35,7 @@ namespace Presentation.Model
 
             private ObservableCollection<Ellipse> ellipses = new ObservableCollection<Ellipse>();
 
-            public ObservableCollection<Ellipse> Ellipses { get => ellipses; set => ellipses=value; }
+            public ObservableCollection<Ellipse> Ellipses { get => ellipses; set => ellipses = value; }
 
             public override void createArea(int number)
             {
@@ -58,6 +60,6 @@ namespace Presentation.Model
         }
     }
 
-    
+
 
 }

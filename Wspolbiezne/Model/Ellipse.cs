@@ -48,7 +48,7 @@ namespace Presentation.Model
             get => width;
             set
             {
-                width=value;
+                width = value;
                 RaisePropertyChanged("Width");
             }
         }
@@ -57,7 +57,7 @@ namespace Presentation.Model
             get => height;
             set
             {
-                height=value;
+                height = value;
                 RaisePropertyChanged("Height");
             }
         }
@@ -66,7 +66,7 @@ namespace Presentation.Model
             get => x;
             set
             {
-                x=value;
+                x = value;
                 RaisePropertyChanged("X");
             }
         }
@@ -75,7 +75,7 @@ namespace Presentation.Model
             get => y;
             set
             {
-                y=value;
+                y = value;
                 RaisePropertyChanged("Y");
             }
         }

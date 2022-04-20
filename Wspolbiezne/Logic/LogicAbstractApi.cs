@@ -27,7 +27,8 @@ namespace Logic
                 {
                     this.dataAPI = DataAbstractAPI.createApi();
                 }
-                else { 
+                else
+                {
                     this.dataAPI = dataAbstractAPI;
                 }
             }

@@ -21,7 +21,7 @@ namespace Logic
             get => xPos;
             set
             {
-                xPos=value;
+                xPos = value;
                 RaisePropertyChanged("XPos");
             }
         }
@@ -30,7 +30,7 @@ namespace Logic
             get => yPos;
             set
             {
-                yPos=value;
+                yPos = value;
                 RaisePropertyChanged("YPos");
             }
         }
@@ -41,7 +41,7 @@ namespace Logic
             {
                 if (value > 0)
                 {
-                    radius=value;
+                    radius = value;
                     RaisePropertyChanged("Radius");
                 }
                 else

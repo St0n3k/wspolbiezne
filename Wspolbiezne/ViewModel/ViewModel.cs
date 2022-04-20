@@ -1,9 +1,9 @@
 ﻿using Presentation.Model;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using System.Text.RegularExpressions;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
+using System.Windows.Input;
 
 namespace Presentation.ViewModel
 {
@@ -18,7 +18,8 @@ namespace Presentation.ViewModel
             {
                 this.modelApi = ModelAbstractAPI.createApi();
             }
-            else {
+            else
+            {
                 this.modelApi = modelAPI;
             }
         }
@@ -32,10 +33,12 @@ namespace Presentation.ViewModel
         {
             stop();
         }
-        public CancelEventHandler closingHandler{
+        public CancelEventHandler closingHandler
+        {
             get; set;
         }
-        public String BallNumber { 
+        public String BallNumber
+        {
             get => Convert.ToString(ballNumber);
             set
             {
@@ -45,7 +48,7 @@ namespace Presentation.ViewModel
                     ballNumber = Convert.ToInt16(value);
                     RaisePropertyChanged("BallNumber");
                 }
-                
+
             }
         }
 
@@ -73,7 +76,7 @@ namespace Presentation.ViewModel
             get => startEnabled;
             set
             {
-                startEnabled=value;
+                startEnabled = value;
                 RaisePropertyChanged("StartEnabled");
                 RaisePropertyChanged("StopEnabled");
             }
@@ -82,10 +85,12 @@ namespace Presentation.ViewModel
 
         private void start()
         {
-            try {
+            try
+            {
                 modelApi.createArea(ballNumber);
             }
-            catch (System.ArgumentException) {
+            catch (System.ArgumentException)
+            {
                 return;
             }
             StartEnabled = false;
