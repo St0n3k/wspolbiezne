@@ -7,7 +7,7 @@ namespace Logic
 {
     public abstract class LogicAbstractAPI
     {
-        public static LogicAbstractAPI createApi(DataAbstractAPI dataAbstractAPI)
+        public static LogicAbstractAPI createApi(DataAbstractAPI dataAbstractAPI = null)
         {
             return new LogicAPI(dataAbstractAPI);
         }
@@ -23,7 +23,13 @@ namespace Logic
 
             public LogicAPI(DataAbstractAPI dataAbstractAPI = null)
             {
-                this.dataAPI = DataAbstractAPI.createApi();
+                if (dataAbstractAPI == null)
+                {
+                    this.dataAPI = DataAbstractAPI.createApi();
+                }
+                else { 
+                    this.dataAPI = dataAbstractAPI;
+                }
             }
 
             public override void createArea(int width, int height, int ballsAmount, int ballRadius)

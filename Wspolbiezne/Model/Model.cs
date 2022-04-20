@@ -6,19 +6,28 @@ namespace Presentation.Model
 {
     public abstract class ModelAbstractAPI
     {
-        public static ModelAbstractAPI createApi()
+        public static ModelAbstractAPI createApi(LogicAbstractAPI logicAbstractAPI = null)
         {
             return new ModelAPI();
         }
 
         public abstract void createArea(int number);
 
-        public abstract ObservableCollection<Ellipse> getBalls();
+        public abstract ObservableCollection<Ellipse> getEllipses();
 
         public abstract void stop();
 
         public sealed class ModelAPI : ModelAbstractAPI
         {
+            public ModelAPI(LogicAbstractAPI logicAbstractAPI = null) {
+                if (logicAbstractAPI == null)
+                {
+                    this.logicApi = LogicAbstractAPI.createApi();
+                }
+                else {
+                    this.logicApi = logicAbstractAPI;
+                }
+            }
 
             private LogicAbstractAPI logicApi = LogicAbstractAPI.createApi(null);
 
@@ -31,7 +40,7 @@ namespace Presentation.Model
                 logicApi.createArea(700, 400, number, 10);
             }
 
-            public override ObservableCollection<Ellipse> getBalls()
+            public override ObservableCollection<Ellipse> getEllipses()
             {
                 List<Ball> balls = logicApi.getBalls();
                 Ellipses.Clear();

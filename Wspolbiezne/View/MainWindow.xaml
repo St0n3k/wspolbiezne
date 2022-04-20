@@ -35,7 +35,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <TextBox Text="{Binding Path=BallNumber, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="224,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Grid.Column="1"/>
+        <TextBox  Text="{Binding Path=BallNumber, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="224,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Grid.Column="1" MaxWidth="54" MaxHeight="17.96"/>
         <Button Command="{Binding StartCommand}" IsEnabled="{Binding StartEnabled}" Content="Start" HorizontalAlignment="Left" Margin="224,92,0,0" VerticalAlignment="Top" Grid.Column="1" Height="21" Width="54"/>
         <Button Command="{Binding StopCommand}" IsEnabled="{Binding StopEnabled}" Content="Stop" HorizontalAlignment="Left" Margin="224,118,0,0" VerticalAlignment="Top" Grid.Column="1" Height="21" Width="54"/>
 

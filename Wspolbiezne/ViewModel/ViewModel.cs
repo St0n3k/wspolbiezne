@@ -1,23 +1,53 @@
 ﻿using Presentation.Model;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.Text.RegularExpressions;
+using System;
+using System.ComponentModel;
 
 namespace Presentation.ViewModel
 {
     public class ViewModelController : ViewModelBase
     {
-        public ViewModelController()
+        public ViewModelController(ModelAbstractAPI modelAPI = null)
         {
             StartCommand = new RelayCommand(start);
             StopCommand = new RelayCommand(stop);
-            modelApi = ModelAbstractAPI.createApi();
+            closingHandler = OnWindowClosing;
+            if (modelAPI == null)
+            {
+                this.modelApi = ModelAbstractAPI.createApi();
+            }
+            else {
+                this.modelApi = modelAPI;
+            }
         }
+        public ViewModelController() : this(null) { }
 
         private ModelAbstractAPI modelApi;
 
-        private int ballNumber = 0;
+        private int ballNumber = 1;
 
-        public int BallNumber { get => ballNumber; set => ballNumber=value; }
+        public void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            stop();
+        }
+        public CancelEventHandler closingHandler{
+            get; set;
+        }
+        public String BallNumber { 
+            get => Convert.ToString(ballNumber);
+            set
+            {
+                Regex regex = new Regex("^([0-9]{1,3})$");
+                if (regex.IsMatch(value))
+                {
+                    ballNumber = Convert.ToInt16(value);
+                    RaisePropertyChanged("BallNumber");
+                }
+                
+            }
+        }
 
         public ICommand StartCommand { get; set; }
 
@@ -52,9 +82,14 @@ namespace Presentation.ViewModel
 
         private void start()
         {
-            modelApi.createArea(ballNumber);
+            try {
+                modelApi.createArea(ballNumber);
+            }
+            catch (System.ArgumentException) {
+                return;
+            }
             StartEnabled = false;
-            BallsList = modelApi.getBalls();
+            BallsList = modelApi.getEllipses();
         }
 
         private void stop()
