@@ -27,15 +27,6 @@ namespace Presentation.ViewModel
         private ModelAbstractAPI modelApi;
 
         private int ballNumber = 1;
-
-        public void OnWindowClosing(object sender, CancelEventArgs e)
-        {
-            stop();
-        }
-        public CancelEventHandler closingHandler
-        {
-            get; set;
-        }
         
         public string BallNumber { 
             get => Convert.ToString(ballNumber);
