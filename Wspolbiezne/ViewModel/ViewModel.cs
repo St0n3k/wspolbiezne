@@ -1,5 +1,9 @@
 ﻿using Presentation.Model;
 using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Text.RegularExpressions;
+using System.Windows.Input;
 
 namespace Presentation.ViewModel
 {
@@ -32,8 +36,7 @@ namespace Presentation.ViewModel
         {
             get; set;
         }
-        public String BallNumber
-        {
+        
         public string BallNumber { 
             get => Convert.ToString(ballNumber);
             set
