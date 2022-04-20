@@ -1,9 +1,5 @@
 ﻿using Presentation.Model;
 using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Text.RegularExpressions;
-using System.Windows.Input;
 
 namespace Presentation.ViewModel
 {
@@ -13,7 +9,6 @@ namespace Presentation.ViewModel
         {
             StartCommand = new RelayCommand(start);
             StopCommand = new RelayCommand(stop);
-            closingHandler = OnWindowClosing;
             if (modelAPI == null)
             {
                 this.modelApi = ModelAbstractAPI.createApi();
@@ -39,6 +34,7 @@ namespace Presentation.ViewModel
         }
         public String BallNumber
         {
+        public string BallNumber { 
             get => Convert.ToString(ballNumber);
             set
             {
