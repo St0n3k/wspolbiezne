@@ -23,7 +23,7 @@ namespace Logic
             private Area area;
 
             private DataAbstractAPI dataAPI;
-            public LogicAPI(DataAbstractAPI dataAbstractAPI = null)
+            internal LogicAPI(DataAbstractAPI dataAbstractAPI = null)
             {
                 if (dataAbstractAPI == null)
                 {
