@@ -25,7 +25,6 @@ namespace Logic.Tests
             Assert.AreEqual(area.Width, 3);
             Assert.AreEqual(area.Height, 3);
 
-
         }
 
     }

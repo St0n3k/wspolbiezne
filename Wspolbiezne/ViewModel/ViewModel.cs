@@ -32,10 +32,10 @@ namespace Presentation.ViewModel
             get => Convert.ToString(ballNumber);
             set
             {
-                Regex regex = new Regex("^([0-9]{1,3})$");
+                Regex regex = new Regex("^([0-9]{1,9})$");
                 if (regex.IsMatch(value))
                 {
-                    ballNumber = Convert.ToInt16(value);
+                    ballNumber = Convert.ToInt32(value);
                     RaisePropertyChanged("BallNumber");
                 }
 

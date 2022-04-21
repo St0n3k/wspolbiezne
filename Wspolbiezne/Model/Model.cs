@@ -44,9 +44,9 @@ namespace Presentation.Model
 
             public override ObservableCollection<Ellipse> getEllipses()
             {
-                List<Ball> balls = logicApi.getBalls();
+                List<IBall> balls = logicApi.getBalls();
                 Ellipses.Clear();
-                foreach (Ball b in balls)
+                foreach (IBall b in balls)
                 {
                     Ellipses.Add(new Ellipse(b));
                 }

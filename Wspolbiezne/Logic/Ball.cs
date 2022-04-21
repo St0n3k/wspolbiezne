@@ -4,19 +4,19 @@ using System.Runtime.CompilerServices;
 
 namespace Logic
 {
-    public class Ball : INotifyPropertyChanged
+    internal class Ball : IBall
     {
         private int xPos;
         private int yPos;
         private int radius;
 
-        public Ball(int x, int y, int radius)
+        internal Ball(int x, int y, int radius)
         {
             this.xPos = x;
             this.yPos = y;
             this.radius = radius;
         }
-        public int XPos
+        internal int XPos
         {
             get => xPos;
             set
@@ -25,7 +25,7 @@ namespace Logic
                 RaisePropertyChanged("XPos");
             }
         }
-        public int YPos
+        internal int YPos
         {
             get => yPos;
             set
@@ -34,7 +34,7 @@ namespace Logic
                 RaisePropertyChanged("YPos");
             }
         }
-        public int Radius
+        internal int Radius
         {
             get => radius;
             set
@@ -50,6 +50,20 @@ namespace Logic
                 }
             }
         }
+
+        public int getXPos() { 
+            return xPos;
+        }
+
+        public int getYPos()
+        {
+            return yPos;
+        }
+        public int getRadius()
+        {
+            return Radius;
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

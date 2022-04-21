@@ -11,30 +11,30 @@ namespace Presentation.Model
         private int height;
         private int x;
         private int y;
-        public Ellipse(Ball b)
+        public Ellipse(IBall b)
         {
-            this.width = 2 * b.Radius;
-            this.height = 2 * b.Radius;
-            this.x = b.XPos - b.Radius;
-            this.y = b.YPos - b.Radius;
+            this.width = 2 * b.getRadius();
+            this.height = 2 * b.getRadius();
+            this.x = b.getXPos() - b.getRadius();
+            this.y = b.getYPos() - b.getRadius();
             b.PropertyChanged += update;
         }
 
         private void update(object sender, PropertyChangedEventArgs e)
         {
-            Ball ball = (Ball)sender;
+            IBall ball = (IBall)sender;
             if (e.PropertyName == "XPos")
             {
-                this.X = ball.XPos - ball.Radius;
+                this.X = ball.getXPos() - ball.getRadius();
             }
             else if (e.PropertyName == "YPos")
             {
-                this.Y = ball.YPos - ball.Radius;
+                this.Y = ball.getYPos() - ball.getRadius();
             }
             else if (e.PropertyName == "Radius")
             {
-                this.Width = 2 * ball.Radius;
-                this.Height = 2 * ball.Radius;
+                this.Width = 2 * ball.getRadius();
+                this.Height = 2 * ball.getRadius();
             }
             else
             {

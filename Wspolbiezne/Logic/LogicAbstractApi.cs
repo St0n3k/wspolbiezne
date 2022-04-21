@@ -16,11 +16,13 @@ namespace Logic
 
         public abstract void stop();
 
-        public abstract List<Ball> getBalls();
+        public abstract List<IBall> getBalls();
 
         internal sealed class LogicAPI : LogicAbstractAPI
         {
+            private Area area;
 
+            private DataAbstractAPI dataAPI;
             public LogicAPI(DataAbstractAPI dataAbstractAPI = null)
             {
                 if (dataAbstractAPI == null)
@@ -63,7 +65,7 @@ namespace Logic
                 }
             }
 
-            public override List<Ball> getBalls()
+            public override List<IBall> getBalls()
             {
                 return area.Balls;
             }
@@ -73,9 +75,7 @@ namespace Logic
                 this.area.Active = false;
             }
 
-            private Area area;
-
-            private DataAbstractAPI dataAPI;
+            
         }
 
 

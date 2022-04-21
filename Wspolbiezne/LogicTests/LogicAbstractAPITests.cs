@@ -11,7 +11,7 @@ namespace Logic.Tests
         {
             LogicAbstractAPI test = LogicAbstractAPI.createApi();
             test.createArea(600, 400, 100, 2);
-            List<Ball> ballList = test.getBalls();
+            List<IBall> ballList = test.getBalls();
             Assert.AreEqual(ballList.Count, 100);
             foreach (Ball ball in ballList)
             {
