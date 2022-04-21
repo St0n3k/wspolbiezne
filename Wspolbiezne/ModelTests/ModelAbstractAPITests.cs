@@ -14,7 +14,7 @@ namespace Presentation.Model.Tests
             LogicAbstractAPI testLogic = LogicAbstractAPI.createApi();
             ModelAbstractAPI testModel = ModelAbstractAPI.createApi(testLogic);
             testModel.createArea(10);
-            ObservableCollection<Ellipse> colObs = testModel.getEllipses();
+            ObservableCollection<IEllipse> colObs = testModel.getEllipses();
             Assert.AreEqual(10, colObs.Count);
             for (int i = 1; i < colObs.Count; i++)
             {

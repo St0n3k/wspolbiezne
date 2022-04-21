@@ -18,7 +18,7 @@ namespace Logic
             }
             this.width = width;
             this.height = height;
-
+                
             createBalls(ballsAmount, ballRadius);
         }
 
@@ -29,7 +29,7 @@ namespace Logic
         internal List<IBall> Balls => balls;
 
         internal bool Active { get => active; set => active = value; }
-        public void createBalls(int amount, int radius)
+        internal void createBalls(int amount, int radius)
         {
             if (2 * radius > width || 2 * radius > height || radius <= 0 || amount <= 0)
             {

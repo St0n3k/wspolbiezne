@@ -7,8 +7,8 @@ namespace Logic
 {
     public interface IBall : INotifyPropertyChanged
     {
-        int getXPos();
-        int getYPos();
-        int getRadius();
+        int XPos { get; }
+        int YPos { get; }
+        int Radius { get; }
     }
 }

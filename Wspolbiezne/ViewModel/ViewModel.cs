@@ -46,8 +46,8 @@ namespace Presentation.ViewModel
 
         public ICommand StopCommand { get; set; }
 
-        private ObservableCollection<Ellipse> ballsList;
-        public ObservableCollection<Ellipse> BallsList
+        private ObservableCollection<IEllipse> ballsList;
+        public ObservableCollection<IEllipse> BallsList
         {
             get => ballsList;
 

@@ -13,13 +13,13 @@ namespace Presentation.Model
 
         public abstract void createArea(int number);
 
-        public abstract ObservableCollection<Ellipse> getEllipses();
+        public abstract ObservableCollection<IEllipse> getEllipses();
 
         public abstract void stop();
 
-        public sealed class ModelAPI : ModelAbstractAPI
+        internal sealed class ModelAPI : ModelAbstractAPI
         {
-            public ModelAPI(LogicAbstractAPI logicAbstractAPI = null)
+            internal ModelAPI(LogicAbstractAPI logicAbstractAPI = null)
             {
                 if (logicAbstractAPI == null)
                 {
@@ -33,16 +33,16 @@ namespace Presentation.Model
 
             private LogicAbstractAPI logicApi = LogicAbstractAPI.createApi(null);
 
-            private ObservableCollection<Ellipse> ellipses = new ObservableCollection<Ellipse>();
+            private ObservableCollection<IEllipse> ellipses = new ObservableCollection<IEllipse>();
 
-            public ObservableCollection<Ellipse> Ellipses { get => ellipses; set => ellipses = value; }
+            internal ObservableCollection<IEllipse> Ellipses { get => ellipses; set => ellipses = value; }
 
             public override void createArea(int number)
             {
                 logicApi.createArea(700, 400, number, 10);
             }
 
-            public override ObservableCollection<Ellipse> getEllipses()
+            public override ObservableCollection<IEllipse> getEllipses()
             {
                 List<IBall> balls = logicApi.getBalls();
                 Ellipses.Clear();

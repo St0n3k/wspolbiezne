@@ -5,18 +5,18 @@ using System.Runtime.CompilerServices;
 
 namespace Presentation.Model
 {
-    public class Ellipse : INotifyPropertyChanged
+    internal class Ellipse : IEllipse
     {
         private int width;
         private int height;
         private int x;
         private int y;
-        public Ellipse(IBall b)
+        internal Ellipse(IBall b)
         {
-            this.width = 2 * b.getRadius();
-            this.height = 2 * b.getRadius();
-            this.x = b.getXPos() - b.getRadius();
-            this.y = b.getYPos() - b.getRadius();
+            this.width = 2 * b.Radius;
+            this.height = 2 * b.Radius;
+            this.x = b.XPos - b.Radius;
+            this.y = b.YPos - b.Radius;
             b.PropertyChanged += update;
         }
 
@@ -25,16 +25,16 @@ namespace Presentation.Model
             IBall ball = (IBall)sender;
             if (e.PropertyName == "XPos")
             {
-                this.X = ball.getXPos() - ball.getRadius();
+                this.X = ball.XPos - ball.Radius;
             }
             else if (e.PropertyName == "YPos")
             {
-                this.Y = ball.getYPos() - ball.getRadius();
+                this.Y = ball.YPos - ball.Radius;
             }
             else if (e.PropertyName == "Radius")
             {
-                this.Width = 2 * ball.getRadius();
-                this.Height = 2 * ball.getRadius();
+                this.Width = 2 * ball.Radius;
+                this.Height = 2 * ball.Radius;
             }
             else
             {

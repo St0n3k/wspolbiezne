@@ -16,7 +16,7 @@ namespace Logic
             this.yPos = y;
             this.radius = radius;
         }
-        internal int XPos
+        public int XPos
         {
             get => xPos;
             set
@@ -25,7 +25,7 @@ namespace Logic
                 RaisePropertyChanged("XPos");
             }
         }
-        internal int YPos
+        public int YPos
         {
             get => yPos;
             set
@@ -34,7 +34,7 @@ namespace Logic
                 RaisePropertyChanged("YPos");
             }
         }
-        internal int Radius
+        public int Radius
         {
             get => radius;
             set
@@ -50,20 +50,6 @@ namespace Logic
                 }
             }
         }
-
-        public int getXPos() { 
-            return xPos;
-        }
-
-        public int getYPos()
-        {
-            return yPos;
-        }
-        public int getRadius()
-        {
-            return Radius;
-        }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 
