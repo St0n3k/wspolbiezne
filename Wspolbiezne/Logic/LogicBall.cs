@@ -8,24 +8,23 @@ namespace Logic
     public class LogicBall : INotifyPropertyChanged
     {
         private readonly Ball ball;
-        private double weight;
-        private int[] speed = new int[2];
+        private double[] speed = new double[2];
 
         public LogicBall(Ball b) { 
             this.ball = b;
             Random rand = new Random();
-            int xSpeed = 0;
+            double xSpeed = 0;
             do
             {
                 xSpeed = rand.Next(-2, 3);
             } while (xSpeed == 0);
-            int ySpeed = 4 - Math.Abs(xSpeed);
+            double ySpeed = Math.Sqrt(16 - (xSpeed * xSpeed));
             ySpeed = (rand.Next(-1,1) < 0) ? ySpeed : -ySpeed;
-            this.speed[0] = xSpeed;
-            this.speed[1] = ySpeed;
+            this.speed[0] = 0.5 * xSpeed;
+            this.speed[1] = 0.5 * ySpeed;
 
         }
-        public int XPos {
+        public double XPos {
             get => ball.XPos;
             set
             {
@@ -33,7 +32,7 @@ namespace Logic
                 RaisePropertyChanged("XPos");
             }
         }
-        public int YPos {
+        public double YPos {
             get => ball.YPos;
             set
             {
@@ -41,7 +40,7 @@ namespace Logic
                 RaisePropertyChanged("YPos");
             }
         }
-        public int Radius {
+        public double Radius {
             get => ball.Radius;
             set
             {
@@ -56,10 +55,10 @@ namespace Logic
                 }
             }
         }
-        public double Weight { get => weight; set => weight = value; }
-        public int xSpeed { get => speed[0]; set => speed[0] = value; }
+        public double Weight { get => ball.Weight; set => ball.Weight = value; }
+        public double xSpeed { get => speed[0]; set => speed[0] = value; }
 
-        public int ySpeed { get => speed[1]; set => speed[1] = value; }
+        public double ySpeed { get => speed[1]; set => speed[1] = value; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -6,19 +6,19 @@ namespace Data
 {
     public class Ball : INotifyPropertyChanged
     {
-        private int xPos;
-        private int yPos;
-        private int radius;
+        private double xPos;
+        private double yPos;
+        private double radius;
         private double weight;
 
-        public Ball(int x, int y, int radius, double weight)
+        public Ball(double x, double y, double radius, double weight)
         {
             this.xPos = x;
             this.yPos = y;
             this.radius = radius;
             this.weight = weight;
         }
-        public int XPos
+        public double XPos
         {
             get => xPos;
             set
@@ -27,7 +27,7 @@ namespace Data
                 RaisePropertyChanged("XPos");
             }
         }
-        public int YPos
+        public double YPos
         {
             get => yPos;
             set
@@ -36,7 +36,7 @@ namespace Data
                 RaisePropertyChanged("YPos");
             }
         }
-        public int Radius
+        public double Radius
         {
             get => radius;
             set

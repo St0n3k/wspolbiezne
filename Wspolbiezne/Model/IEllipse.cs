@@ -4,9 +4,9 @@ namespace Presentation.Model
 {
     public interface IEllipse : INotifyPropertyChanged
     {
-        int Width { get; set; }
-        int Height { get; set; }
-        int X { get; set; }
-        int Y{ get; set; }
+        double Width { get; set; }
+        double Height { get; set; }
+        double X { get; set; }
+        double Y{ get; set; }
     }
 }

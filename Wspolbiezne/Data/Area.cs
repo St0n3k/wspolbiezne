@@ -36,10 +36,33 @@ namespace Data
             Random rand = new Random();
             for (int i = 0; i < amount; i++)
             {
-                int x = rand.Next(radius, this.width - radius);
-                int y = rand.Next(radius, this.height - radius);
-                double w = rand.Next(1, 5);
-                this.Balls.Add(new Ball(x, y, radius, w));
+                bool ok = true;
+                int x = radius;
+                int y = radius;
+                do
+                {
+                    ok = true;
+                    x = rand.Next(radius, this.width - radius);
+                    y = rand.Next(radius, this.height - radius);
+                    foreach (Ball b in this.Balls)
+                    {
+                        double distance = Math.Sqrt(((b.XPos - x) * (b.XPos - x)) + ((b.YPos - y) * (b.YPos - y)));
+                        if (distance <= b.Radius + radius)
+                        {
+                            ok = false;
+                            break;
+                        };
+                    }
+                    if (!ok)
+                    {
+                        continue;
+                    };
+                    ok = true;
+
+                } while (!ok);
+                double w = rand.NextDouble() * (1 - 0.5) + 0.5;
+                //w = 1;
+                this.Balls.Add(new Ball(x, y, w * radius, w));
             }
         }
 

@@ -7,10 +7,10 @@ namespace Presentation.Model
 {
     internal class Ellipse : IEllipse
     {
-        private int width;
-        private int height;
-        private int x;
-        private int y;
+        private double width;
+        private double height;
+        private double x;
+        private double y;
         internal Ellipse(LogicBall b)
         {
             this.width = 2 * b.Radius;
@@ -43,7 +43,7 @@ namespace Presentation.Model
 
         }
 
-        public int Width
+        public double Width
         {
             get => width;
             set
@@ -52,7 +52,7 @@ namespace Presentation.Model
                 RaisePropertyChanged("Width");
             }
         }
-        public int Height
+        public double Height
         {
             get => height;
             set
@@ -61,7 +61,7 @@ namespace Presentation.Model
                 RaisePropertyChanged("Height");
             }
         }
-        public int X
+        public double X
         {
             get => x;
             set
@@ -70,7 +70,7 @@ namespace Presentation.Model
                 RaisePropertyChanged("X");
             }
         }
-        public int Y
+        public double Y
         {
             get => y;
             set

@@ -39,7 +39,7 @@ namespace Presentation.Model
 
             public override void start(int number)
             {
-                logicApi.start(700, 400, number, 10);
+                logicApi.start(700, 400, number, 20);
             }
 
             public override ObservableCollection<IEllipse> getEllipses()
