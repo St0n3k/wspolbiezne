@@ -76,7 +76,7 @@ namespace Presentation.ViewModel
         {
             try
             {
-                modelApi.createArea(ballNumber);
+                modelApi.start(ballNumber);
             }
             catch (System.ArgumentException)
             {

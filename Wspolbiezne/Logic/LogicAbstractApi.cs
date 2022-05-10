@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Logic
 {
@@ -12,17 +13,20 @@ namespace Logic
             return new LogicAPI(dataAbstractAPI);
         }
 
-        public abstract void createArea(int width, int height, int ballsAmount, int ballRadius);
-
+        public abstract List<LogicBall> getBalls();
+        public abstract void start(int width, int height, int ballsAmount, int ballRadius);
         public abstract void stop();
-
-        public abstract List<IBall> getBalls();
 
         internal sealed class LogicAPI : LogicAbstractAPI
         {
-            private Area area;
+            bool active = false;
+
+            private List<LogicBall> balls = new List<LogicBall>();
 
             private DataAbstractAPI dataAPI;
+            public bool Active { get => active; set => active = value; }
+            public List<LogicBall> Balls { get => balls; set => balls = value; }
+
             internal LogicAPI(DataAbstractAPI dataAbstractAPI = null)
             {
                 if (dataAbstractAPI == null)
@@ -35,49 +39,43 @@ namespace Logic
                 }
             }
 
-            public override void createArea(int width, int height, int ballsAmount, int ballRadius)
+            public override void stop()
             {
-                this.area = new Area(width, height, ballsAmount, ballRadius);
+                this.Active = false;
+                this.Balls.Clear();
+            }
 
-                foreach (Ball b in area.Balls)
+            public override void start(int width, int height, int ballsAmount, int ballRadius) {
+                dataAPI.createArea(width, height, ballsAmount, ballRadius);
+                foreach (Ball b in dataAPI.getBalls()) {
+                    this.Balls.Add(new LogicBall(b));
+                }
+                this.Active = true;
+                foreach (LogicBall b in this.Balls)
                 {
-                    Thread t = new Thread(() =>
+                    Task t = new Task(() =>
                     {
-                        while (this.area.Active)
+                        while (this.Active)
                         {
-                            Random random = new Random();
-                            int newX = b.XPos + random.Next(-1, 2);
-                            while (newX == b.XPos || (newX - b.Radius) < 0 || (newX + b.Radius) > area.Width)
-                            {
-                                newX = b.XPos + random.Next(-1, 2);
+                            b.XPos += b.xSpeed;
+                            b.YPos += b.ySpeed;
+                            if (b.XPos + b.Radius >= dataAPI.Area.Width || b.XPos - b.Radius <= 0) {
+                                b.xSpeed = -b.xSpeed;
                             }
-                            int newY = b.YPos + random.Next(-1, 2);
-                            while (newY == b.YPos || (newY - b.Radius) < 0 || (newY + b.Radius) > area.Height)
+                            if (b.YPos + b.Radius >= dataAPI.Area.Height || b.YPos - b.Radius <= 0)
                             {
-                                newY = b.YPos + random.Next(-1, 2);
+                                b.ySpeed = -b.ySpeed;
                             }
-                            b.XPos = newX;
-                            b.YPos = newY;
                             Thread.Sleep(5);
                         }
                     });
                     t.Start();
                 }
             }
-
-            public override List<IBall> getBalls()
+            public override List<LogicBall> getBalls()
             {
-                return area.Balls;
+                return this.Balls;
             }
-
-            public override void stop()
-            {
-                this.area.Active = false;
-            }
-
-            
         }
-
-
     }
 }

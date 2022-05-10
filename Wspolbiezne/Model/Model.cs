@@ -11,7 +11,7 @@ namespace Presentation.Model
             return new ModelAPI();
         }
 
-        public abstract void createArea(int number);
+        public abstract void start(int number);
 
         public abstract ObservableCollection<IEllipse> getEllipses();
 
@@ -37,16 +37,16 @@ namespace Presentation.Model
 
             internal ObservableCollection<IEllipse> Ellipses { get => ellipses; set => ellipses = value; }
 
-            public override void createArea(int number)
+            public override void start(int number)
             {
-                logicApi.createArea(700, 400, number, 10);
+                logicApi.start(700, 400, number, 10);
             }
 
             public override ObservableCollection<IEllipse> getEllipses()
             {
-                List<IBall> balls = logicApi.getBalls();
+                List<LogicBall> balls = logicApi.getBalls();
                 Ellipses.Clear();
-                foreach (IBall b in balls)
+                foreach (LogicBall b in balls)
                 {
                     Ellipses.Add(new Ellipse(b));
                 }

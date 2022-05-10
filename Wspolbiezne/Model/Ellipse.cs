@@ -11,7 +11,7 @@ namespace Presentation.Model
         private int height;
         private int x;
         private int y;
-        internal Ellipse(IBall b)
+        internal Ellipse(LogicBall b)
         {
             this.width = 2 * b.Radius;
             this.height = 2 * b.Radius;
@@ -22,7 +22,7 @@ namespace Presentation.Model
 
         private void update(object sender, PropertyChangedEventArgs e)
         {
-            IBall ball = (IBall)sender;
+            LogicBall ball = (LogicBall)sender;
             if (e.PropertyName == "XPos")
             {
                 this.X = ball.XPos - ball.Radius;

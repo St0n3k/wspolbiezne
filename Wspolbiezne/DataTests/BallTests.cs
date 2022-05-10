@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Logic.Tests
+namespace Data.Tests
 {
     [TestClass]
     public class BallTests
@@ -8,10 +8,11 @@ namespace Logic.Tests
         [TestMethod]
         public void BallTest()
         {
-            Ball ball = new Ball(2, 2, 2);
+            Ball ball = new Ball(2, 2, 2, 2);
             Assert.AreEqual(ball.Radius, 2);
             Assert.AreEqual(ball.XPos, 2);
             Assert.AreEqual(ball.YPos, 2);
+            Assert.AreEqual(ball.Weight, 2);
             Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => ball.Radius = -2);
             ball.Radius = 1;
             ball.XPos = 1;
