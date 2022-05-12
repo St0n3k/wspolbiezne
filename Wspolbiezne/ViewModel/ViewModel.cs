@@ -25,7 +25,7 @@ namespace Presentation.ViewModel
 
         private ModelAbstractAPI modelApi;
 
-        private int ballNumber = 1;
+        private int ballNumber = 5;
         
         public string BallNumber { 
             get => Convert.ToString(ballNumber);

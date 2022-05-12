@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Logic.Tests
 {
@@ -10,9 +11,9 @@ namespace Logic.Tests
         public void createAreaTests()
         {
             LogicAbstractAPI test = LogicAbstractAPI.createApi();
-            test.start(600, 400, 100, 2);
+            test.start(600, 400, 50, 2);
             List<LogicBall> ballList = test.getBalls();
-            Assert.AreEqual(ballList.Count, 100);
+            Assert.AreEqual(ballList.Count, 50);
             foreach (LogicBall ball in ballList)
             {
                 Assert.AreEqual(ball.Radius, 2);

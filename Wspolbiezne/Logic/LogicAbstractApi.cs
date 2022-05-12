@@ -1,6 +1,7 @@
 ﻿using Data;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,11 +20,12 @@ namespace Logic
 
         internal sealed class LogicAPI : LogicAbstractAPI
         {
+            private DataAbstractAPI dataAPI;
+
             bool active = false;
 
             private List<LogicBall> balls = new List<LogicBall>();
-
-            private DataAbstractAPI dataAPI;
+            
             public bool Active { get => active; set => active = value; }
             public List<LogicBall> Balls { get => balls; set => balls = value; }
 
@@ -41,7 +43,7 @@ namespace Logic
 
             public override void stop()
             {
-                this.Active = false;
+                dataAPI.stop();
                 this.Balls.Clear();
             }
 
@@ -49,81 +51,72 @@ namespace Logic
                 dataAPI.createArea(width, height, ballsAmount, ballRadius);
                 foreach (Ball b in dataAPI.getBalls()) {
                     this.Balls.Add(new LogicBall(b));
-                }
-                this.Active = true;
-                foreach (LogicBall b in this.Balls)
-                {
-                    Task t = new Task(() =>
-                    {
-                        while (this.Active)
-                        {
-                            foreach (LogicBall b2 in this.Balls)
-                            {
-                                if (b == b2) continue;
-                                lock (b2)
-                                {
-                                    double xCol = b.XPos + b.xSpeed - b2.XPos + b2.xSpeed;
-                                    double yCol = b.YPos + b.ySpeed - b2.YPos + b2.ySpeed;
-                                    double distance = Math.Sqrt((xCol * xCol) + (yCol * yCol));
-                                    if (distance < b2.Radius + b.Radius)
-                                    {
-                                        //System.Diagnostics.Debug.WriteLine("1 Waga x: " + b.Weight);
-                                        //System.Diagnostics.Debug.WriteLine("2 Waga x: " + b2.Weight);
-                                        //System.Diagnostics.Debug.WriteLine("1 Przed x: " + b.xSpeed);
-                                        //System.Diagnostics.Debug.WriteLine("2 Przed x: " + b2.xSpeed);
-                                        double newB = ((b.xSpeed * (b.Weight - b2.Weight) + (2 * b2.Weight * b2.xSpeed)) / (b.Weight + b2.Weight));
-                                        b2.xSpeed = ((b2.xSpeed * (b2.Weight - b.Weight) + (2 * b.Weight * b.xSpeed)) / (b.Weight + b2.Weight));
-                                        b.xSpeed = newB;
-                                        //System.Diagnostics.Debug.WriteLine("1 Po x: " + b.xSpeed);
-                                        //System.Diagnostics.Debug.WriteLine("2 Po x: " + b2.xSpeed);
-                                        
-                                        //System.Diagnostics.Debug.WriteLine("1 Przed y: " + b.ySpeed);
-                                        //System.Diagnostics.Debug.WriteLine("2 Przed y: " + b2.ySpeed);
-                                        newB = ((b.ySpeed * (b.Weight - b2.Weight)) + (2 * b2.Weight * b2.ySpeed) / (b.Weight + b2.Weight));
-                                        b2.ySpeed = ((b2.ySpeed * (b2.Weight - b.Weight)) + (2 * b.Weight * b.ySpeed) / (b.Weight + b2.Weight));
-                                        b.ySpeed = newB;
-                                        //System.Diagnostics.Debug.WriteLine("1 Po y: " + b.ySpeed);
-                                        //System.Diagnostics.Debug.WriteLine("2 Po y: " + b2.ySpeed);
-                                    }
-
-                                }
-                            }
-                            lock (b)
-                            {
-                                b.XPos += b.xSpeed;
-                                b.YPos += b.ySpeed;
-                                if (b.XPos + b.Radius >= dataAPI.Area.Width)
-                                {
-                                    b.xSpeed = -b.xSpeed;
-                                    b.XPos = dataAPI.Area.Width - b.Radius;
-                                }
-                                if (b.XPos - b.Radius <= 0)
-                                {
-                                    b.xSpeed = -b.xSpeed;
-                                    b.XPos = b.Radius;
-                                }
-                                if (b.YPos + b.Radius >= dataAPI.Area.Height)
-                                {
-                                    b.ySpeed = -b.ySpeed;
-                                    b.YPos = dataAPI.Area.Height - b.Radius;
-                                }
-                                if (b.YPos - b.Radius <= 0)
-                                {
-                                    b.ySpeed = -b.ySpeed;
-                                    b.YPos = b.Radius;
-                                }
-
-                            }
-
-                            Thread.Sleep(5);
-                        }
-                    });
-                    t.Start();
+                    b.PropertyChanged += update;
                 }
             }
             public override List<LogicBall> getBalls()
             {
                 return this.Balls;
+            }
+
+            private void update(object sender, PropertyChangedEventArgs e)
+            {
+                Ball ball = (Ball)sender;
+                if (e.PropertyName == "Position")
+                {
+                    collide(ball);
+                }
+
+            }
+
+            private void borderCollision(Ball main) {
+                if ((main.XPos + main.Radius) >= dataAPI.Area.Width)
+                {
+                    main.xSpeed = -main.xSpeed;
+                    main.XPos = dataAPI.Area.Width - main.Radius;
+                }
+                if ((main.XPos - main.Radius) <= 0)
+                {
+                    main.xSpeed = -main.xSpeed;
+                    main.XPos = main.Radius;
+                }
+                if ((main.YPos + main.Radius) >= dataAPI.Area.Height)
+                {
+                    main.ySpeed = -main.ySpeed;
+                    main.YPos = dataAPI.Area.Height - main.Radius;
+                }
+                if ((main.YPos - main.Radius) <= 0)
+                {
+                    main.ySpeed = -main.ySpeed;
+                    main.YPos = main.Radius;
+                }
+            }
+
+            private void ballCollision(Ball main) {
+                foreach (Ball b in dataAPI.getBalls())
+                {
+                    if (b == main)
+                    {
+                        continue;
+                    }
+                    double xCol = b.XPos - main.XPos;
+                    double yCol = b.YPos - main.YPos;
+                    double distance = Math.Sqrt((xCol * xCol) + (yCol * yCol));
+                    if (distance <= (main.Radius + b.Radius))
+                    {
+                        double newB = ((b.xSpeed * (b.Weight - main.Weight) + (2 * main.Weight * main.xSpeed)) / (b.Weight + main.Weight));
+                        main.xSpeed = ((main.xSpeed * (main.Weight - b.Weight) + (2 * b.Weight * b.xSpeed)) / (b.Weight + main.Weight));
+                        b.xSpeed = newB;
+
+                        newB = ((b.ySpeed * (b.Weight - main.Weight)) + (2 * main.Weight * main.ySpeed) / (b.Weight + main.Weight));
+                        main.ySpeed = ((main.ySpeed * (main.Weight - b.Weight)) + (2 * b.Weight * b.ySpeed) / (b.Weight + main.Weight));
+                        b.ySpeed = newB;
+                    }
+                }
+            }
+            private void collide(Ball main) {
+                borderCollision(main);
+                ballCollision(main);                
             }
         }
     }

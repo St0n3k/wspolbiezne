@@ -31,7 +31,7 @@
                 <DataTemplate>
                     <Ellipse Height="{Binding Height}" 
                             Width="{Binding Width}"
-                            Stroke="Black" Fill="White"></Ellipse>
+                            Fill="Red"></Ellipse>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

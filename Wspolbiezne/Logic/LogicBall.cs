@@ -7,21 +7,27 @@ namespace Logic
 {
     public class LogicBall : INotifyPropertyChanged
     {
-        private readonly Ball ball;
-        private double[] speed = new double[2];
+        private Ball ball;
 
         public LogicBall(Ball b) { 
             this.ball = b;
-            Random rand = new Random();
-            double xSpeed = 0;
-            do
+            b.PropertyChanged += update;
+        }
+
+        private void update(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "XPos")
             {
-                xSpeed = rand.Next(-2, 3);
-            } while (xSpeed == 0);
-            double ySpeed = Math.Sqrt(16 - (xSpeed * xSpeed));
-            ySpeed = (rand.Next(-1,1) < 0) ? ySpeed : -ySpeed;
-            this.speed[0] = 0.5 * xSpeed;
-            this.speed[1] = 0.5 * ySpeed;
+                RaisePropertyChanged("XPos");
+            }
+            else if (e.PropertyName == "YPos")
+            {
+                RaisePropertyChanged("YPos");
+            }
+            else if (e.PropertyName == "Radius")
+            {
+                RaisePropertyChanged("Radius");
+            }
 
         }
         public double XPos {
@@ -55,10 +61,7 @@ namespace Logic
                 }
             }
         }
-        public double Weight { get => ball.Weight; set => ball.Weight = value; }
-        public double xSpeed { get => speed[0]; set => speed[0] = value; }
-
-        public double ySpeed { get => speed[1]; set => speed[1] = value; }
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
 
