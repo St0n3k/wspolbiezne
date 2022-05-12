@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Data;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Data.Tests
 {
@@ -20,6 +22,28 @@ namespace Data.Tests
             Assert.AreEqual(ball.Radius, 1);
             Assert.AreEqual(ball.XPos, 1);
             Assert.AreEqual(ball.YPos, 1);
+
+            Assert.AreNotEqual(ball.xSpeed, 0);
+            Assert.AreNotEqual(ball.ySpeed, 0);
+
+            Assert.AreEqual(ball.Weight, 2);
+
+            Assert.AreEqual(Math.Abs(ball.ySpeed), Math.Sqrt(4 - (ball.xSpeed * ball.xSpeed)));
+        }
+
+        [TestMethod]
+        public void moveTest()
+        {
+            Ball ball = new Ball(1, 1, 1, 2);
+            double xPos = ball.XPos;
+            double yPos = ball.YPos;
+            ball.move();
+            Assert.AreEqual(xPos + ball.xSpeed, ball.XPos);
+            Assert.AreEqual(yPos + ball.ySpeed, ball.YPos);
+            Assert.AreNotEqual(xPos, ball.XPos);
+            Assert.AreNotEqual(yPos, ball.YPos);
+
+
         }
     }
 }

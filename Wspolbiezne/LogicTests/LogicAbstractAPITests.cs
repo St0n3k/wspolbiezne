@@ -17,8 +17,8 @@ namespace Logic.Tests
             foreach (LogicBall ball in ballList)
             {
                 Assert.AreEqual(ball.Radius, 2);
-                Assert.IsTrue((ball.XPos - ball.Radius) >= 0 && (ball.XPos + ball.Radius) <= 600);
-                Assert.IsTrue((ball.YPos - ball.Radius) >= 0 && (ball.YPos + ball.Radius) <= 400);
+                Assert.IsTrue((ball.XPos - ball.Radius) >= 0 - 2 && (ball.XPos + ball.Radius) <= 600 + 2);
+                Assert.IsTrue((ball.YPos - ball.Radius) >= 0 - 2 && (ball.YPos + ball.Radius) <= 400 + 2);
             }
             test.stop();
         }
