@@ -45,21 +45,6 @@ namespace Data
                             {
                                 ball.move();   
                             }
-                            
-                            if (Interlocked.CompareExchange(ref queue_cnt, 1, 0) == 0)
-                            {
-                                Monitor.Enter(barrier);
-                                while (queue_cnt != balls.Count && this.Active){}
-                                Interlocked.Decrement(ref queue_cnt);
-                                Monitor.Exit(barrier);
-                            }
-                            else
-                            {
-                                Interlocked.Increment(ref queue_cnt);
-                                Monitor.Enter(barrier);
-                                Interlocked.Decrement(ref queue_cnt);
-                                Monitor.Exit(barrier);
-                            }
 
                             Thread.Sleep(5);
                         }
