@@ -23,7 +23,7 @@ namespace Data
                         watch.Restart();
                         using (StreamWriter writer = new StreamWriter(Directory.GetCurrentDirectory() + "\\log.txt", true))
                         {
-                            string stamp = ($"Log started {DateTime.UtcNow:o}");
+                            string stamp = ($"Log started {DateTime.Now:o}");
                             foreach (Ball ball in balls)
                             {
                                 writer.WriteLine(stamp + JsonSerializer.Serialize(ball));

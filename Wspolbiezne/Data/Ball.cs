@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 
 namespace Data
 {
@@ -54,6 +55,8 @@ namespace Data
         public double xSpeed { get => speed[0]; set => speed[0] = value; }
 
         public double ySpeed { get => speed[1]; set => speed[1] = value; }
+        
+        [JsonIgnore]
         public double Radius
         {
             get => radius;
@@ -70,7 +73,7 @@ namespace Data
                 }
             }
         }
-
+        
         public double Weight
         {
             get => weight;
