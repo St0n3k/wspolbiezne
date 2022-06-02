@@ -20,13 +20,11 @@ namespace Data
         {
             private readonly object locked = new object();
 
-            private readonly object barrier = new object();
-
-            private int queue_cnt = 0;
-
             private bool active = false;
 
             private Area area;
+
+            private Logger logger;
 
             public bool Active { get => active; set => active = value; }
             public override Area Area { get => area; }        
@@ -36,6 +34,8 @@ namespace Data
                 this.area = new Area(width, height, ballsAmount, ballRadius);
                 this.Active = true;
                 List<Ball> balls = getBalls();
+
+                logger = new Logger(balls);
 
                 foreach (Ball ball in balls) {
                     Thread t = new Thread(() => {
@@ -60,6 +60,7 @@ namespace Data
 
             public override void stop() { 
                 this.Active = false;
+                this.logger.stop();
             }
 
 
